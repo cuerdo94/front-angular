@@ -1,0 +1,22 @@
+@if (products.length > 0) {
+<table>
+  <thead>
+    <tr>
+      <td>Id</td>
+      <td>Name</td>
+      <td>Description</td>
+      <td>Price</td>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let item of products">
+      <td>{{item.id}}</td>
+      <td>{{item.name}}</td>
+      <td>{{item.description}}</td>
+      <td>{{item.price}}</td>
+    </tr>
+  </tbody>
+</table>
+}@else {
+<p>No products found.</p>
+}
