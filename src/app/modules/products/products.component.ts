@@ -25,24 +25,45 @@ export class ProductsComponent {
 
   persistProduct(newProduct: Product) {
 
-    if (newProduct.id == undefined) {
-      newProduct.id = new Date().getTime();
-      this.products.push(newProduct);
-    } else {
-      this.products = this.products.map(p => {
-        if (p.id == newProduct.id) {
-          return newProduct;
+    this.service.save(newProduct).subscribe({
+      next: (productServer) => {
+        if (productServer && productServer.id) {
+          if (!newProduct.id) {
+            newProduct.id = productServer.id;
+            this.products.push(newProduct);
+          } else {
+            this.products = this.products.map(p => p.id === newProduct.id ? newProduct : p);
+          }
+        } else {
+          console.error('El servidor respondió, pero la respuesta no es válida.', productServer);
         }
-        return p;
-      });
-    }
+      },
+      error: (err) => {
+        console.error('Error al guardar el producto en el servidor:', err);
+      },
+      complete: () => {
+        console.log('La operación de guardado ha finalizado.');
+      }
+    });
 
   }
+
+
   onEdit(product: Product): void {
     this.productSelect = { ...product };
   }
 
   onDelete(id: number): void {
-    this.products = this.products.filter(p => p.id != id);
+    this.service.delete(id).subscribe({
+      next: () => {
+        this.products = this.products.filter(p => p.id != id);
+      },
+      error: (err) => {
+        console.error('Error al guardar el producto en el servidor:', err);
+      },
+      complete: () => {
+        console.log('La operación de guardado ha finalizado.');
+      }
+    })
   }
 }

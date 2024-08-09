@@ -1,9 +1,8 @@
 <div class="card">
-  <form (ngSubmit)="onSubmit()" class="form-control" #productForm="ngForm">
+  <form (ngSubmit)="onSubmit(productForm)" class="form-control" #productForm="ngForm">
     <div class="mb-3">
       <label for="name" class="form-label">Name</label>
-      <input class="form-control" #name="ngModel" name="name" id="name" placeholder="name" [(ngModel)]="product.name"
-        required minlength="5" />
+      <input class="form-control" #name="ngModel" name="name" id="name" placeholder="name" [(ngModel)]="product.name" />
       <div *ngIf="name.invalid && (name.dirty || name.touched)">
         <span class="text-danger">Es requerido</span>
       </div>
