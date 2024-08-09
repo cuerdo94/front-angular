@@ -23,11 +23,11 @@
               <td>{{item.name}}</td>
               <td>{{item.description}}</td>
               <td>{{item.price}}</td>
-              <td>
-                <button type="button" class="btn btn-sm btn-outline-primary" (click)="onEdit(item)">
+              <td class="d-flex gap-2">
+                <button type="button" class="btn btn-sm btn-outline-primary flex-grow-1" (click)="onEdit(item)">
                   Editar
                 </button>
-                <button type="button" class="btn btn-danger btn-sm" (click)="onDelete(item.id)">
+                <button type="button" class="btn btn-danger btn-sm flex-grow-1" (click)="onDelete(item.id)">
                   Eliminar
                 </button>
               </td>

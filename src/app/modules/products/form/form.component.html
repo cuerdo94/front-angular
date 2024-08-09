@@ -1,20 +1,31 @@
 <div class="card">
-  <form (ngSubmit)="onSubmit()" class="form-control">
+  <form (ngSubmit)="onSubmit()" class="form-control" #productForm="ngForm">
     <div class="mb-3">
       <label for="name" class="form-label">Name</label>
-      <input type="text" class="form-control" name="name" id="name" placeholder="name" [(ngModel)]="product.name" />
+      <input class="form-control" #name="ngModel" name="name" id="name" placeholder="name" [(ngModel)]="product.name"
+        required minlength="5" />
+      <div *ngIf="name.invalid && (name.dirty || name.touched)">
+        <span class="text-danger">Es requerido</span>
+      </div>
     </div>
     <div class="mb-3">
       <label for="description" class="form-label">description</label>
-      <input type="text" class="form-control" name="description" id="description" placeholder="description"
-        [(ngModel)]="product.description" />
+      <input class="form-control" #description="ngModel" name="description" id="description" placeholder="description"
+        [(ngModel)]="product.description" required minlength="5" />
+      <div *ngIf="description.invalid && (description.dirty || description.touched)">
+        <span class="text-danger">Es requerido</span>
+      </div>
     </div>
     <div class="mb-3">
       <label for="price" class="form-label">price</label>
-      <input type="text" class="form-control" name="price" id="price" placeholder="price" [(ngModel)]="product.price" />
+      <input type="number" class="form-control" #price="ngModel" name="price" id="price" placeholder="price"
+        [(ngModel)]="product.price" required />
+      <div *ngIf="price.invalid && (price.dirty || price.touched)">
+        <span class="text-danger">Es requerido</span>
+      </div>
     </div>
-    <button class="btn btn-primary">
-      {{product.id == undefined?"Crear":"Editar"}}
+    <button class="btn btn-primary" [disabled]="!productForm.form.valid">
+      {{product.id == undefined ? "Crear" : "Editar"}}
     </button>
   </form>
 </div>

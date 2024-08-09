@@ -24,22 +24,22 @@ export class ProductsComponent {
   }
 
   persistProduct(newProduct: Product) {
+
     if (newProduct.id == undefined) {
       newProduct.id = new Date().getTime();
       this.products.push(newProduct);
     } else {
-      this.products.map(p => {
+      this.products = this.products.map(p => {
         if (p.id == newProduct.id) {
-          return { ...newProduct };
+          return newProduct;
         }
-
         return p;
       });
     }
 
   }
   onEdit(product: Product): void {
-    this.productSelect = product;
+    this.productSelect = { ...product };
   }
 
   onDelete(id: number): void {
